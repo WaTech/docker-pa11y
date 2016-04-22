@@ -7,6 +7,7 @@ web:
   ports:
     - "33400:4000"
     - "33300:3000"
+    - "33022:22"
   links:
     - database:mongodb
   environment:
