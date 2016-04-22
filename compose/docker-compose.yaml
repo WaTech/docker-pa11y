@@ -5,7 +5,8 @@ web:
   #image: robloach/pa11y:dashboard
   build: ../pa11y-dashboard
   ports:
-    - "8000:4000"
+    - "33400:4000"
+    - "33300:3000"
   links:
     - database:mongodb
   environment:
@@ -21,3 +22,7 @@ database:
   image: mongo:3.2
   ports:
     - "27017"
+  volumes:
+    - /var/lib/volumes/pa11y_data_root:/data
+    - /var/lib/volumes/pa11y_data_db:/data/db
+    - /var/lib/volumes/pa11y_data_configdb:/data/configdb

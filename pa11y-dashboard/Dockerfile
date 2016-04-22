@@ -3,8 +3,8 @@ FROM node:5
 MAINTAINER Rob Loach <robloach@gmail.com>
 
 # Dependencies
-RUN apt-get update -y && apt-get upgrade -y && apt-get install net-tools -y
-
+RUN apt-get update -y && apt-get upgrade -y && apt-get install net-tools ssh -y
+RUN update-rc.d ssh defaults && service ssh start
 # Environment variables
 ENV NODE_ENV ${NODE_ENV:-production}
 ENV PA11Y_VERSION 1.8.2
@@ -25,7 +25,9 @@ RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-
 
 EXPOSE 4000
 EXPOSE 3000
+EXPOSE 22
 
 # Set up the startup script.
 COPY docker-entrypoint.sh /entrypoint.sh
+COPY jenkins.pem.pub /root/.ssh/authorized_keys
 ENTRYPOINT ["sh", "/entrypoint.sh"]
