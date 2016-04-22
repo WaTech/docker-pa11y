@@ -28,6 +28,9 @@ EXPOSE 3000
 EXPOSE 22
 
 # Set up the startup script.
-COPY docker-entrypoint.sh /entrypoint.sh
+RUN mkdir /root/.ssh
 COPY jenkins.pem.pub /root/.ssh/authorized_keys
+COPY docker-entrypoint.sh /entrypoint.sh
+
+
 ENTRYPOINT ["sh", "/entrypoint.sh"]
