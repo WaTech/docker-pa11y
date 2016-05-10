@@ -22,7 +22,7 @@ ENV PA11Y_WEBSERVICE_CRON ${PA11Y_WEBSERVICE_CRON:-"0 30 0 * * *"}
 
 # Install PhantomJS
 RUN npm install phantomjs-prebuilt@2 -g
-RUN sudo npm install chalk express express-hbs moment pa11y-webservice pa11y-webservice-client-node underscore -g
+RUN npm install chalk express express-hbs moment pa11y-webservice pa11y-webservice-client-node underscore -g
 
 # Retrieve the dashboard
 RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git && npm i pa11y-reporter-1.0-json #patch-1 --save && npm i pa11y-webservice@~1.8 --save && npm i
