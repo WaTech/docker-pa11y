@@ -14,4 +14,5 @@ echo "{\n"\
 	"}" | tee /pa11y-dashboard/config/production.json
 
 # Start up the dashboard.
+sudo npm install chalk
 cd /pa11y-dashboard && node .
