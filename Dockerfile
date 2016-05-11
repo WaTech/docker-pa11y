@@ -1,3 +1,4 @@
+# pa11y-dashboard Docker Container
 # https://github.com/springernature/pa11y-dashboard
 FROM node:5
 MAINTAINER Rob Loach <robloach@gmail.com>
@@ -5,7 +6,6 @@ MAINTAINER Rob Loach <robloach@gmail.com>
 # Dependencies
 RUN apt-get update -y && apt-get upgrade -y && apt-get install net-tools ssh -y
 RUN update-rc.d ssh defaults
-RUN service ssh start
 RUN sed -i "s|UsePAM yes|UsePAM no|g" /etc/ssh/sshd_config
 
 # Environment variables
@@ -22,10 +22,11 @@ ENV PA11Y_WEBSERVICE_CRON ${PA11Y_WEBSERVICE_CRON:-"0 30 0 * * *"}
 
 # Install PhantomJS
 RUN npm install phantomjs-prebuilt@2 -g
-RUN npm install chalk express express-hbs moment pa11y-webservice pa11y-webservice-client-node underscore -g
 
 # Retrieve the dashboard
-RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git && npm i pa11y-reporter-1.0-json #patch-1 --save && npm i pa11y-webservice@~1.8 --save && npm i
+RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save && npm i pa11y-webservice@~1.8 --save && npm i pa11y-webservice-client-node && npm install express express-hbs moment underscore
+
+RUN cd /pa11y-dashboard && npm i pa11y-reporter-1.0-json && npm i chalk
 
 EXPOSE 4000
 EXPOSE 3000
@@ -37,3 +38,4 @@ COPY jenkins.pem.pub /root/.ssh/authorized_keys
 COPY docker-entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
+
