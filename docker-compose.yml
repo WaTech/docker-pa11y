@@ -20,6 +20,7 @@ web:
     PA11Y_WEBSERVICE_HOST: "0.0.0.0"
     PA11Y_WEBSERVICE_PORT: 3000
     PA11Y_WEBSERVICE_CRON: "0 30 0 * * *"
+  cpu_shares: 5
 database:
   image: mongo:3.2
   ports:
@@ -28,3 +29,4 @@ database:
     - /var/lib/volumes/pa11y_data_root:/data
     - /var/lib/volumes/pa11y_data_db:/data/db
     - /var/lib/volumes/pa11y_data_configdb:/data/configdb
+  cpu_shares: 5
