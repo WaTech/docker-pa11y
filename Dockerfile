@@ -7,7 +7,6 @@ MAINTAINER Rob Loach <robloach@gmail.com>
 RUN apt-get update -y && apt-get upgrade -y && apt-get install net-tools ssh -y
 RUN update-rc.d ssh defaults
 RUN sed -i "s|UsePAM yes|UsePAM no|g" /etc/ssh/sshd_config
-RUN cd npm install
 
 # Environment variables
 ENV NODE_ENV ${NODE_ENV:-production}
@@ -26,7 +25,7 @@ RUN npm install phantomjs-prebuilt@2 -g
 
 # Retrieve the dashboard
 RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save
-RUN cd /pa11y-dashboard && npm i pa11y-reporter-1.0-json && npm install
+RUN cd /pa11y-dashboard && npm install && npm i pa11y-reporter-1.0-json
 EXPOSE 4000
 EXPOSE 3000
 EXPOSE 22
