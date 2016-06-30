@@ -7,6 +7,7 @@ MAINTAINER Rob Loach <robloach@gmail.com>
 RUN apt-get update -y && apt-get upgrade -y && apt-get install net-tools ssh -y
 RUN update-rc.d ssh defaults
 RUN sed -i "s|UsePAM yes|UsePAM no|g" /etc/ssh/sshd_config
+RUN npm install
 
 # Environment variables
 ENV NODE_ENV ${NODE_ENV:-production}
@@ -24,17 +25,14 @@ ENV PA11Y_WEBSERVICE_CRON ${PA11Y_WEBSERVICE_CRON:-"0 30 0 * * *"}
 RUN npm install phantomjs-prebuilt@2 -g
 
 # Retrieve the dashboard
-RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save && npm i pa11y-webservice@~1.8 --save && npm i pa11y-webservice-client-node && npm install express express-hbs moment underscore body-parser
-
-RUN cd /pa11y-dashboard && npm i pa11y-reporter-1.0-json && npm i chalk
-
+RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save
+RUN cd /pa11y-dashboard && npm i pa11y-reporter-1.0-json
 EXPOSE 4000
 EXPOSE 3000
 EXPOSE 22
 
 # Set up the startup script.
 RUN mkdir /root/.ssh
-COPY jenkins.pem.pub /root/.ssh/authorized_keys
 COPY docker-entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
