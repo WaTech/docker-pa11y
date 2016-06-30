@@ -24,7 +24,7 @@ ENV PA11Y_WEBSERVICE_CRON ${PA11Y_WEBSERVICE_CRON:-"0 30 0 * * *"}
 RUN npm install phantomjs-prebuilt@2 -g
 
 # Retrieve the dashboard
-RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save && npm i pa11y-webservice@~1.8 --save && npm i pa11y-webservice-client-node && npm install express express-hbs moment underscore
+RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save && npm i pa11y-webservice@~1.8 --save && npm i pa11y-webservice-client-node && npm install express express-hbs moment underscore body-parser
 
 RUN cd /pa11y-dashboard && npm i pa11y-reporter-1.0-json && npm i chalk
 

@@ -3,7 +3,8 @@ web:
   # Build the image off of Dockie
   # https://github.com/robloach/dockie
   #image: robloach/pa11y:dashboard
-  build: .
+  #build: .
+  image: alexiasa/docker-pa11y
   ports:
     - "33400:4000"
     - "33300:3000"
