@@ -24,7 +24,7 @@ ENV PA11Y_WEBSERVICE_CRON ${PA11Y_WEBSERVICE_CRON:-"0 30 0 * * *"}
 RUN npm install phantomjs-prebuilt@2 -g
 
 # Retrieve the dashboard
-RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save
+RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/pa11y/pa11y.git --save
 RUN cd /pa11y-dashboard && npm install && npm i pa11y-reporter-1.0-json
 EXPOSE 4000
 EXPOSE 3000
