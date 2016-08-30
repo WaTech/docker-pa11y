@@ -1,10 +1,7 @@
-# pa11y-dashboard
+# Docker compose application based on Pa11y Dashboard image built from this repo's Dockerfile
 web:
-  # Build the image off of Dockie
-  # https://github.com/robloach/dockie
-  #image: robloach/pa11y:dashboard
-  #build: .
-  image: alexiasa/docker-pa11y
+  # trying the develop image that should have fixed ssl errors
+  image: alexiasa/docker-pa11y:develop
   ports:
     - "33400:4000"
     - "33300:3000"
@@ -15,12 +12,12 @@ web:
     PA11Y_PORT: 4000
     PA11Y_NOINDEX: "true"
     PA11Y_READONLY: "false"
-    PA11Y_SITEMESSAGE: "Welcome to our pa11y dashboard!"
+    PA11Y_SITEMESSAGE: "this dashboard is a dockerized application!"
     PA11Y_WEBSERVICE_DATABASE: "mongodb://mongodb/pa11y-webservice"
     PA11Y_WEBSERVICE_HOST: "0.0.0.0"
     PA11Y_WEBSERVICE_PORT: 3000
     PA11Y_WEBSERVICE_CRON: "0 30 0 * * *"
-  cpu_shares: 5
+  cpu_shares: 200
 database:
   image: mongo:3.2
   ports:
@@ -29,4 +26,4 @@ database:
     - /var/lib/volumes/pa11y_data_root:/data
     - /var/lib/volumes/pa11y_data_db:/data/db
     - /var/lib/volumes/pa11y_data_configdb:/data/configdb
-  cpu_shares: 5
+  cpu_shares: 300
