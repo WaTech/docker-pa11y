@@ -1,7 +1,7 @@
-# pa11y-dashboard Docker Container
+# Pa11y-Dashboard Docker Container
 # https://github.com/springernature/pa11y-dashboard
+# https://github.com/watech/docker-pa11y
 FROM node:5
-MAINTAINER Rob Loach <robloach@gmail.com>
 
 # Dependencies
 RUN apt-get update -y && apt-get upgrade -y && apt-get install net-tools ssh -y
@@ -14,7 +14,7 @@ ENV PA11Y_VERSION 1.8.2
 ENV PA11Y_PORT ${PORT:-4000}
 ENV PA11Y_NOINDEX ${PA11Y_NOINDEX:-true}
 ENV PA11Y_READONLY ${PA11Y_READONLY:-false}
-ENV PA11Y_SITEMESSAGE ${PA11Y_SITEMESSAGE:-"Welcome to our pa11y dashboard!"}
+ENV PA11Y_SITEMESSAGE ${PA11Y_SITEMESSAGE:-"this dashboard is a dockerized application!"}
 ENV PA11Y_WEBSERVICE_DATABASE ${PA11Y_WEBSERVICE_DATABASE:-mongodb://localhost/pa11y-webservice}
 ENV PA11Y_WEBSERVICE_HOST ${PA11Y_WEBSERVICE_HOST:-0.0.0.0}
 ENV PA11Y_WEBSERVICE_PORT ${PA11Y_WEBSERVICE_PORT:-3000}
@@ -27,8 +27,9 @@ RUN npm install phantomjs-prebuilt@2 -g
 RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save
 RUN cd /pa11y-dashboard && npm install && npm i pa11y-reporter-1.0-json
 
-# Change pa11y settings to allow any ssl protocol on sites it tests
+# Change Pa11y settings to allow any ssl protocol as a workaround for weird ssl errors
 RUN sed -i "s|tlsv1|any|g" /pa11y-dashboard/node_modules/pa11y-webservice/node_modules/pa11y/lib/pa11y.js
+RUN sed -i "s|tlsv1|any|g" /pa11y-dashboard/node_modules/pa11y/lib/pa11y.js
 
 # Expose necessary ports
 EXPOSE 4000
