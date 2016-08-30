@@ -26,6 +26,11 @@ RUN npm install phantomjs-prebuilt@2 -g
 # Retrieve the dashboard
 RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-dashboard && npm i pa11y@git+https://github.com/RobLoach/pa11y.git --save
 RUN cd /pa11y-dashboard && npm install && npm i pa11y-reporter-1.0-json
+
+# Change pa11y settings to allow any ssl protocol on sites it tests
+RUN sed -i "s|tlsv1|any|g" /pa11y-dashboard/node_modules/pa11y-webservice/node_modules/pa11y/lib/pa11y.js
+
+# Expose necessary ports
 EXPOSE 4000
 EXPOSE 3000
 EXPOSE 22
