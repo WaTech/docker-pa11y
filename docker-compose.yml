@@ -1,10 +1,8 @@
 # pa11y-dashboard
 web:
-  # Build the image off of Dockie
-  # https://github.com/robloach/dockie
-  #image: robloach/pa11y:dashboard
-  #build: .
-  image: alexiasa/docker-pa11y
+  # build: .
+  # trying the develop image that should have fixed ssl errors
+  image: alexiasa/docker-pa11y:develop
   ports:
     - "33400:4000"
     - "33300:3000"
