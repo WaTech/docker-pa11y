@@ -15,7 +15,7 @@ ENV PA11Y_PORT ${PORT:-4000}
 ENV PA11Y_NOINDEX ${PA11Y_NOINDEX:-true}
 ENV PA11Y_READONLY ${PA11Y_READONLY:-false}
 ENV PA11Y_SITEMESSAGE ${PA11Y_SITEMESSAGE:-"this dashboard is a dockerized application!"}
-ENV PA11Y_WEBSERVICE_DATABASE ${PA11Y_WEBSERVICE_DATABASE:-mongodb://localhost/pa11y-webservice}
+ENV PA11Y_WEBSERVICE_DATABASE ${PA11Y_WEBSERVICE_DATABASE:-mongodb://mongodb/pa11y-webservice}
 ENV PA11Y_WEBSERVICE_HOST ${PA11Y_WEBSERVICE_HOST:-0.0.0.0}
 ENV PA11Y_WEBSERVICE_PORT ${PA11Y_WEBSERVICE_PORT:-3000}
 ENV PA11Y_WEBSERVICE_CRON ${PA11Y_WEBSERVICE_CRON:-"0 30 0 * * *"}
@@ -28,7 +28,7 @@ RUN git clone https://github.com/springernature/pa11y-dashboard.git && cd pa11y-
 RUN cd /pa11y-dashboard && npm install && npm i pa11y-reporter-1.0-json
 
 # Change Pa11y settings to allow any ssl protocol as a workaround for weird ssl errors
-RUN sed -i "s|tlsv1|any|g" /pa11y-dashboard/node_modules/pa11y-webservice/node_modules/pa11y/lib/pa11y.js
+# RUN sed -i "s|tlsv1|any|g" /pa11y-dashboard/node_modules/pa11y-webservice/node_modules/pa11y/lib/pa11y.js
 RUN sed -i "s|tlsv1|any|g" /pa11y-dashboard/node_modules/pa11y/lib/pa11y.js
 
 # Expose necessary ports
